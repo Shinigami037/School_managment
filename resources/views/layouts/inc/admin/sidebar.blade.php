@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav position-fixed">
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="dashboard">
                 <i class="mdi mdi-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -39,7 +39,7 @@
             <div class="collapse" id="tech">
                 <ul class="nav flex-column sub-menu">
                     <?php if (Auth::user()->role_as == 1) : ?>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Add Teachers </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ 'addteacher' }}"> Add Teachers </a></li>
                     <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>
                     <?php else : ?>
                     <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>

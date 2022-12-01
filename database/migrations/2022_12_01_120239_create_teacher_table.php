@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('qualification');
             $table->string('password');
-            $table->string('img');
+            $table->string('img')->nullable();;
             $table->timestamps();
         });
     }
