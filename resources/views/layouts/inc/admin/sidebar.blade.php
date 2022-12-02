@@ -38,12 +38,12 @@
             </a>
             <div class="collapse" id="tech">
                 <ul class="nav flex-column sub-menu">
-                    <?php if (Auth::user()->role_as == 1) : ?>
-                    <li class="nav-item"> <a class="nav-link" href="{{ 'addteacher' }}"> Add Teachers </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>
-                    <?php else : ?>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>
-                    <?php endif; ?>
+                    @if (Auth::user()->role_as == 0)
+                        <li class="nav-item"> <a class="nav-link" href="{{ 'addteacher' }}"> Add Teachers </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>
+                    @else
+                        <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li>
+                    @endif
                     {{-- <li class="nav-item"> <a class="nav-link" href="#"> Add Teachers </a></li>
                     <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li> --}}
                 </ul>
@@ -57,12 +57,12 @@
             </a>
             <div class="collapse" id="stu">
                 <ul class="nav flex-column sub-menu">
-                    <?php if (Auth::user()->role_as == 1) : ?>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Add Students </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
-                    <?php else : ?>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
-                    <?php endif; ?>
+                    @if (Auth::user()->role_as == 1 or Auth::user()->role_as == 0)
+                        <li class="nav-item"> <a class="nav-link" href="#"> Add Students </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
+                    @else
+                        <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
+                    @endif
                     {{-- <li class="nav-item"> <a class="nav-link" href="#"> Add Students </a></li>
                     <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li> --}}
                 </ul>
