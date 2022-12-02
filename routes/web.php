@@ -28,6 +28,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Teachers
-    Route::get('/addteacher', [TeacherController::class, 'index']);
-    Route::post('/addteacher', [TeacherController::class, 'addteacher']);
+    Route::controller(TeacherController::class)->group(function () {
+        Route::get('/addteacher', 'index');
+        Route::get('/teacher',  'display');
+        Route::get('/teacher/{tid}/edit', 'edit');
+        Route::post('/addteacher', 'addteacher');
+        Route::post('/upteacher/{teacher}', 'update');
+    });
 });

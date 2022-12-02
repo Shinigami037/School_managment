@@ -48,6 +48,7 @@ class TeacherFormRequest extends FormRequest
                 'nullable',
                 'mimes:jpg,jpeg,png',
             ],
+
         ];
     }
 }
