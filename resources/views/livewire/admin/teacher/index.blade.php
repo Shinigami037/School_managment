@@ -22,7 +22,7 @@
                             @foreach ($values as $data)
                                 <tr>
                                     <td>
-                                        {{ $data->id }}
+                                        {{ $data->teacher_id }}
                                     </td>
                                     <td>
                                         {{ $data->name }}

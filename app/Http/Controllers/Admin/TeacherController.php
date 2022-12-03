@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use App\Helpers\Helper;
 
 class TeacherController extends Controller
 {
@@ -17,11 +18,16 @@ class TeacherController extends Controller
     {
         return view('admin.teacher.index');
     }
+
     public function addteacher(TeacherFormRequest $request)
     {
         $validatedData = $request->validated();
+
         $user = new User;
         $teacher = new Teacher;
+        $date = date("Y");
+        $mid = strval($date[2] . $date[3]);
+        // die(print_r($mid));
         $teacher->name = $validatedData['name'];
         $teacher->email = $validatedData['email'];
         $teacher->phone = $validatedData['phone'];
@@ -43,10 +49,14 @@ class TeacherController extends Controller
         } else {
             $teacher->gender = 0;
         }
-        $teacher->teacher_id = "";
+
+        $teacher_id = Helper::IDGenerator(new Teacher, 'teacher_id', 3, 'SCH', $mid, '', 'TEC');
+        /** Generate id */
+        $teacher->teacher_id = $teacher_id;
         // $teacher->img = $validatedData['img'];
 
         $teacher->save();
+
         $id = $teacher->id;
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
@@ -57,15 +67,16 @@ class TeacherController extends Controller
 
         return redirect('admin/addteacher');
     }
+
     public function display()
     {
         return view('admin.teacher.display');
     }
+
     public function edit(Teacher $tid)
     {
         return view('admin.teacher.edit', compact('tid'));
     }
-
 
     public function update(Request $request, $tid)
     {
