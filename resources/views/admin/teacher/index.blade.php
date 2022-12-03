@@ -35,6 +35,13 @@
 
                         </div>
                         <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender[]" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleTextarea1">Qualification</label>
                             <textarea name="qualification" class="form-control" id="exampleTextarea1" rows="4"></textarea>
                         </div>

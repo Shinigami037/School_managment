@@ -48,6 +48,18 @@
                                 <option>In Active</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2">Status</label>
+                            <select name="gender[]" class="form-control" id="exampleFormControlSelect2">
+                                @if ($tid->status == 1)
+                                    <option>Male</option>
+                                @else
+                                    <option>Female</option>
+                                @endif
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary me-2">Update</button>
                     </form>
                 </div>

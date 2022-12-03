@@ -7,13 +7,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Qualification</th>
                                 <th>Image</th>
                                 <th>Status</th>
+                                <th>Gender</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -41,6 +42,13 @@
                                     </td>
                                     <td>
                                         {{ $data->status == 1 ? 'Active' : 'In Active' }}
+                                    </td>
+                                    <td>
+                                        @if ($data->gender == 1)
+                                            Male
+                                        @else
+                                            Female
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ url('admin/teacher/' . $data->id . '/edit') }}"

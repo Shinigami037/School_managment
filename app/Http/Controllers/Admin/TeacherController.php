@@ -28,6 +28,8 @@ class TeacherController extends Controller
         $teacher->qualification = $validatedData['qualification'];
         $teacher->password = Hash::make($validatedData['password']);
 
+        $gender = $request->gender;
+
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $ext = $file->getClientOriginalExtension();
@@ -36,6 +38,12 @@ class TeacherController extends Controller
             $file->move('uploads/teacher/', $filename);
             $teacher->img = $filename;
         }
+        if ($gender[0] == 'Male') {
+            $teacher->gender = 1;
+        } else {
+            $teacher->gender = 0;
+        }
+        $teacher->teacher_id = "";
         // $teacher->img = $validatedData['img'];
 
         $teacher->save();
@@ -66,12 +74,27 @@ class TeacherController extends Controller
 
         $validatedData = $request;
         $user = User::all()->where('tid', $tid)->first();
+        $status  = $request->status;
 
         $teacher->name = $validatedData['name'];
         $teacher->email = $validatedData['email'];
         $teacher->phone = $validatedData['phone'];
         $teacher->qualification = $validatedData['qualification'];
+        if ($status[0] == 'Active') {
+            $teacher->status = 1;
+        } else {
+            $teacher->status = 0;
+        }
 
+        $gender = $request->gender;
+        if ($gender[0] == 'Male') {
+            $teacher->gender = 1;
+        } else {
+            $teacher->gender = 0;
+        }
+        // $teacher->teacher_id = "";
+
+        // die($status[0]);
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
 
