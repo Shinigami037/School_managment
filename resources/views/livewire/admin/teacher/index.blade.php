@@ -45,7 +45,8 @@
                                     <td>
                                         <a href="{{ url('admin/teacher/' . $data->id . '/edit') }}"
                                             class="btn btn-success">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('teacher.delete', ['tid' => $data->id]) }}"
+                                            class="btn btn-danger">Delete</a>
                                     </td>
                             @endforeach
                         </tbody>

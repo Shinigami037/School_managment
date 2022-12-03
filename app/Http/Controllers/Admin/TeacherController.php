@@ -28,11 +28,6 @@ class TeacherController extends Controller
         $teacher->qualification = $validatedData['qualification'];
         $teacher->password = Hash::make($validatedData['password']);
 
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->role_as = 1;
-        $user->save();
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $ext = $file->getClientOriginalExtension();
@@ -44,6 +39,13 @@ class TeacherController extends Controller
         // $teacher->img = $validatedData['img'];
 
         $teacher->save();
+        $id = $teacher->id;
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->password = Hash::make($validatedData['password']);
+        $user->role_as = 1;
+        $user->tid = $id;
+        $user->save();
 
         return redirect('admin/addteacher');
     }
@@ -55,21 +57,24 @@ class TeacherController extends Controller
     {
         return view('admin.teacher.edit', compact('tid'));
     }
-    public function update(TeacherFormRequest $request, $teacher)
-    {
-        die('not implemented');
-        $teacher = Teacher::findOrFail($teacher);
 
-        $validatedData = $request->validated();
-        // $user = User::find($validatedData['email']);
+
+    public function update(Request $request, $tid)
+    {
+        // die('not implemented');
+        $teacher = Teacher::findOrFail($tid);
+
+        $validatedData = $request;
+        $user = User::all()->where('tid', $tid)->first();
+
         $teacher->name = $validatedData['name'];
         $teacher->email = $validatedData['email'];
         $teacher->phone = $validatedData['phone'];
         $teacher->qualification = $validatedData['qualification'];
 
-        // $user->name = $validatedData['name'];
-        // $user->email = $validatedData['email'];
-        // $user->update();
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+
 
         if ($request->hasFile('img')) {
             $path = 'uploads/teacher/' . $teacher->img;
@@ -84,9 +89,17 @@ class TeacherController extends Controller
             $teacher->img = $filename;
         }
         // $teacher->img = $validatedData['img'];
-
+        $user->update();
         $teacher->update();
 
+        return redirect('admin/teacher');
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $teacher->is_delete = 1;
+        $teacher->update();
         return redirect('admin/teacher');
     }
 }

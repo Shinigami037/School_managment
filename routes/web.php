@@ -33,6 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/teacher',  'display');
         Route::get('/teacher/{tid}/edit', 'edit');
         Route::post('/addteacher', 'addteacher');
-        Route::post('/upteacher/{teacher}', 'update');
+        Route::post('/update/{tid}', 'update')->name('teacher.update');
+        Route::get('/delete/{tid}', 'delete')->name('teacher.delete');
     });
 });

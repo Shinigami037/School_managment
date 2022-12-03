@@ -6,10 +6,10 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Edit Teacher</h4>
-                    <form class="forms-sample" action="{{ url('admin/upteacher/' . $tid->id) }}" method="POST"
+                    <form action="{{ route('teacher.update', ['tid' => $tid->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-                        {{-- @method('PUT') --}}
+
                         <div class="form-group">
                             <label for="exampleInputName1">Name</label>
                             <input name="name" type="text" value="{{ $tid->name }}" class="form-control"
@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                             <label for="exampleInputMobile">Mobile</label>
-                            <input name="phone" type="number" class="form-control" id="exampleInputMobile"
+                            <input name="phone" type="tel" class="form-control" id="exampleInputMobile"
                                 value="{{ $tid->phone }}">
                         </div>
                         <div class="form-group">
