@@ -14,7 +14,10 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $value = Teacher::orderBy('id', 'ASC')->where('is_delete', '=', 0)->paginate(5);
+        // $value = DB::table('users')->join('teacher', 'users.id', '=', 'teacher.tid')->select('users.name', 'users.email', 'teacher.*')->where('teacher.is_delete', '=', 0)->get();
+        // die(print_r($value));
+        $value = DB::table('users')->join('teacher', 'users.id', '=', 'teacher.tid')->select('users.name', 'users.email', 'teacher.*')->where('teacher.is_delete', '=', 0)->get();
+        // $value = Teacher::orderBy('id', 'ASC')->where('is_delete', '=', 0)->paginate(5);
         // $value = DB::table('Teacher')->orderBy('id', 'asc')->where('is_delete', '=', 0)->paginate(5);
         return view('livewire.admin.teacher.index', ['values' => $value]);
     }

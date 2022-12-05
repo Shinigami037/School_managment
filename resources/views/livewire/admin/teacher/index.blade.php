@@ -52,15 +52,15 @@
                                     </td>
                                     <td>
                                         <a href="{{ url('admin/teacher/' . $data->id . '/edit') }}"
-                                            class="btn btn-success">Edit</a>
+                                            class="btn btn-success btn-rounded">Edit</a>
                                         <a href="{{ route('teacher.delete', ['tid' => $data->id]) }}"
-                                            class="btn btn-danger">Delete</a>
+                                            class="btn btn-danger btn-rounded">Delete</a>
                                     </td>
                             @endforeach
                         </tbody>
                     </table>
                     <div>
-                        {{ $values->links() }}
+
                     </div>
                 </div>
             </div>

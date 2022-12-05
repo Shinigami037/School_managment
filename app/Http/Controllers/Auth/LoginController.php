@@ -36,7 +36,11 @@ class LoginController extends Controller
         // } else {
         //     return redirect('/home')->with('status', 'Access denied');
         // }
-        return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        if (Auth::user()->role_as != 3) {
+            return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        } else {
+            return redirect('/home')->with('status', 'Access denied');
+        }
     }
 
     /**

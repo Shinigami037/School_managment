@@ -12,22 +12,22 @@
                         <div class="form-group">
                             <label for="exampleInputName1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputName1"
-                                placeholder="Name">
+                                placeholder="Name" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail3">Email address</label>
                             <input name="email" type="email" class="form-control" id="exampleInputEmail3"
-                                placeholder="Email">
+                                placeholder="Email" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword4">Password</label>
                             <input name="password" type="password" class="form-control" id="exampleInputPassword4"
-                                placeholder="Password">
+                                placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputMobile">Mobile</label>
                             <input name="phone" type="tel" class="form-control" id="exampleInputMobile"
-                                placeholder="Mobile number">
+                                placeholder="Mobile number" required>
                         </div>
                         <div class="form-group">
                             <label>Photo</label>
@@ -43,9 +43,9 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleTextarea1">Qualification</label>
-                            <textarea name="qualification" class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                            <textarea name="qualification" class="form-control" id="exampleTextarea1" rows="4" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button type="submit" class="btn btn-primary me-2 btn-rounded">Submit</button>
                     </form>
                 </div>
             </div>

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -25,17 +26,23 @@ class TeacherController extends Controller
 
         $user = new User;
         $teacher = new Teacher;
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->password = Hash::make($validatedData['password']);
+        $user->role_as = 1;
+        $user->save();
+
+        $id = $user->id;
         $date = date("Y");
         $mid = strval($date[2] . $date[3]);
         // die(print_r($mid));
-        $teacher->name = $validatedData['name'];
-        $teacher->email = $validatedData['email'];
+        // $teacher->name = $validatedData['name'];
+        // $teacher->email = $validatedData['email'];
         $teacher->phone = $validatedData['phone'];
         $teacher->qualification = $validatedData['qualification'];
-        $teacher->password = Hash::make($validatedData['password']);
-
+        // $teacher->password = Hash::make($validatedData['password']);
+        $teacher->tid = $id;
         $gender = $request->gender;
-
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $ext = $file->getClientOriginalExtension();
@@ -49,46 +56,53 @@ class TeacherController extends Controller
         } else {
             $teacher->gender = 0;
         }
-
         $teacher_id = Helper::IDGenerator(new Teacher, 'teacher_id', 3, 'SCH', $mid, '', 'TEC');
         /** Generate id */
         $teacher->teacher_id = $teacher_id;
         // $teacher->img = $validatedData['img'];
-
         $teacher->save();
-
-        $id = $teacher->id;
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->role_as = 1;
-        $user->tid = $id;
-        $user->save();
 
         return redirect('admin/addteacher');
     }
 
     public function display()
     {
-        return view('admin.teacher.display');
+        $value = DB::table('users')
+            ->join('teacher', 'users.id', '=', 'teacher.tid')
+            ->select('users.name', 'users.email', 'teacher.*')
+            ->where('teacher.is_delete', '=', 0)
+            ->paginate(5);
+        // $value = Teacher::orderBy('id', 'ASC')->where('is_delete', '=', 0)->paginate(5);
+        // $value = DB::table('Teacher')->orderBy('id', 'asc')->where('is_delete', '=', 0)->paginate(5);
+        // return view('livewire.admin.teacher.index', ['values' => $value]);
+        return view('admin.teacher.display', ['values' => $value]);
     }
 
-    public function edit(Teacher $tid)
+    public function edit($tid)
     {
-        return view('admin.teacher.edit', compact('tid'));
+        $value = DB::table('users')
+            ->join('teacher', 'users.id', '=', 'teacher.tid')
+            ->select('users.name', 'users.email', 'teacher.*')
+            ->where('teacher.tid', '=', $tid)->first();
+        // die(print_r($value));
+        return view('admin.teacher.edit', ['tid' => $value]);
     }
 
     public function update(Request $request, $tid)
     {
         // die('not implemented');
-        $teacher = Teacher::findOrFail($tid);
+        $teacher = Teacher::all()->where('tid', $tid)->first();
 
         $validatedData = $request;
-        $user = User::all()->where('tid', $tid)->first();
+        $user = User::findOrFail($tid);
         $status  = $request->status;
 
-        $teacher->name = $validatedData['name'];
-        $teacher->email = $validatedData['email'];
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        // $user->save();
+
+        // $teacher->name = $validatedData['name'];
+        // $teacher->email = $validatedData['email'];
         $teacher->phone = $validatedData['phone'];
         $teacher->qualification = $validatedData['qualification'];
         if ($status[0] == 'Active') {
@@ -106,8 +120,8 @@ class TeacherController extends Controller
         // $teacher->teacher_id = "";
 
         // die($status[0]);
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
+        // $user->name = $validatedData['name'];
+        // $user->email = $validatedData['email'];
 
 
         if ($request->hasFile('img')) {
@@ -131,9 +145,13 @@ class TeacherController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = Teacher::where('tid', '=', $id)->first();
+        // $teacher = Teacher::findOrFail($id);
         $teacher->is_delete = 1;
         $teacher->update();
+        $user = User::find($id);
+        $user->role_as = 3;
+        $user->update();
         return redirect('admin/teacher');
     }
 }

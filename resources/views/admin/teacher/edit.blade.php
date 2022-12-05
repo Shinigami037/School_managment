@@ -6,25 +6,25 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Edit Teacher</h4>
-                    <form action="{{ route('teacher.update', ['tid' => $tid->id]) }}" method="POST"
+                    <form action="{{ route('teacher.update', ['tid' => $tid->tid]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
                             <label for="exampleInputName1">Name</label>
                             <input name="name" type="text" value="{{ $tid->name }}" class="form-control"
-                                id="exampleInputName1">
+                                id="exampleInputName1" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail3">Email address</label>
                             <input name="email" type="email" class="form-control" id="exampleInputEmail3"
-                                value="{{ $tid->email }}">
+                                value="{{ $tid->email }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputMobile">Mobile</label>
                             <input name="phone" type="tel" class="form-control" id="exampleInputMobile"
-                                value="{{ $tid->phone }}">
+                                value="{{ $tid->phone }}" required>
                         </div>
                         <div class="form-group">
                             <label>Photo</label>
@@ -60,7 +60,7 @@
                                 <option>Female</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary me-2">Update</button>
+                        <button type="submit" class="btn btn-primary me-2 btn-rounded">Update</button>
                     </form>
                 </div>
             </div>
