@@ -23,17 +23,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
 
-Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
-
-    // Teachers
-    Route::controller(TeacherController::class)->group(function () {
-        Route::get('/addteacher', 'index');
-        Route::get('/teacher',  'display');
-        Route::get('/teacher/{tid}/edit', 'edit');
-        Route::post('/addteacher', 'addteacher');
-        Route::post('/update/{tid}', 'update')->name('teacher.update');
-        Route::get('/delete/{tid}', 'delete')->name('teacher.delete');
-    });
+// Teachers
+Route::controller(TeacherController::class)->group(function () {
+    Route::get('/admin/addteacher', 'index')->middleware(['auth:web', 'check_role:admin,null,null']);
+    Route::get('/admin/teacher',  'display')->middleware(['auth:web', 'check_role:admin,null,user']);
+    Route::get('/admin/teacher/{tid}/edit', 'edit')->middleware(['auth:web', 'check_role:admin,null,user']);
+    Route::post('/admin/addteacher', 'addteacher')->middleware(['auth:web', 'check_role:admin,null,null']);
+    Route::post('/admin/update/{tid}', 'update')->name('teacher.update')->middleware(['auth:web', 'check_role:admin,null,user']);
+    Route::get('/admin/delete/{tid}', 'delete')->name('teacher.delete')->middleware(['auth:web', 'check_role:admin,null,null']);
 });

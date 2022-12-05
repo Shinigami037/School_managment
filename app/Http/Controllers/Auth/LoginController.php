@@ -32,15 +32,22 @@ class LoginController extends Controller
     protected function authenticated()
     {
         // if (Auth::user()->role_as == 1) {
-        //     return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
         // } else {
         //     return redirect('/home')->with('status', 'Access denied');
         // }
-        if (Auth::user()->role_as != 3) {
-            return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
-        } else {
-            return redirect('/home')->with('status', 'Access denied');
-        }
+        // if (Auth::user()->role_as == '0') {
+        //     echo 'Wel';
+        //     return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        // } elseif (Auth::user()->role_as == 1) {
+        //     echo 'Welcome';
+        //     return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        // } elseif (Auth::user()->role_as == '2') {
+        //     echo 'come';
+        //     return redirect('admin/dashboard')->with('status', 'Welcome to dashboard');
+        // } else {
+        //     return redirect('/home')->with('status', 'Denied');
+        // }
     }
 
     /**
