@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('class', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('section');
+            $table->bigInteger('max_value');
+            $table->bigInteger('current_value');
             $table->timestamps();
         });
     }

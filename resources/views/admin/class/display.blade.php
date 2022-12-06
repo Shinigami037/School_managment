@@ -6,24 +6,46 @@
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Teacher's table</h4>
+                    <h4 class="card-title">Class table</h4>
                     <div class="table-responsive pt-3">
+                        <p>
+                            Students in each class.
+                        </p>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Qualification</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
-                                    <th>Gender</th>
-                                    <th>Action</th>
+                                    {{-- <th>Id</th> --}}
+                                    <th>Class</th>
+                                    <th>Section A</th>
+                                    <th>Section B</th>
+                                    <th>Section C</th>
+                                    <th>Max Class Strength</th>
+                                    {{-- <th>{{ $values->student }}</th> --}}
+                                    {{-- <th>Gender</th> --}}
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($values as $data)
+                                @for ($i = 0; $i < 36; $i += 3)
+                                    <tr>
+                                        <td>
+                                            {{ $values[$i]->name }}
+                                        </td>
+                                        <td>
+                                            {{ $values[$i]->current_value }}
+                                        </td>
+                                        <td>
+                                            {{ $values[$i + 1]->current_value }}
+                                        </td>
+                                        <td>
+                                            {{ $values[$i + 2]->current_value }}
+                                        </td>
+                                        <td>
+                                            {{ $values[$i]->max_value * 3 }}
+                                        </td>
+                                    </tr>
+                                @endfor
+                                {{-- @foreach ($values as $data)
                                     <tr>
                                         <td>
                                             {{ $data->teacher_id }}
@@ -66,11 +88,11 @@
                                                     class="btn btn-danger btn-rounded">Delete</a>
                                             @endif
                                         </td>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                         <div>
-                            <div class="row">{{ $values->links() }}</div>
+                            {{-- <div class="row">{{ $values->links() }}</div> --}}
                         </div>
                     </div>
                 </div>

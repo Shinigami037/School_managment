@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Edit Teacher</h4>
-                    <form action="{{ route('teacher.update', ['tid' => $tid->tid]) }}" method="POST"
+                    <form action="{{ route('teacher.update_teacher', ['tid' => $tid->tid]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
 

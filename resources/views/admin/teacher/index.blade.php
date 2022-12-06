@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Add Teacher</h4>
-                    <form class="forms-sample" action="{{ url('admin/addteacher') }}" method="POST"
+                    <form class="forms-sample" action="{{ route('teacher.add_teacher_form') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
