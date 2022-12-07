@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('teacher', function (Blueprint $table) {
-            $table->dropColumn(['name', 'email', 'password']);
-            $table->bigInteger('tid');
+        Schema::create('class_tbl', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -26,7 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('teacher', function (Blueprint $table) {
-        });
+        Schema::dropIfExists('class_tbl');
     }
 };

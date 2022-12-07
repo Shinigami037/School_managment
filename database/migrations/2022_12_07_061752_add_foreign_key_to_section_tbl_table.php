@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('class', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('section');
-            $table->bigInteger('max_value');
-            $table->bigInteger('current_value');
-            $table->timestamps();
+        Schema::table('section_tbl', function (Blueprint $table) {
+            $table->unsignedBigInteger('cid');
+            $table->foreign('cid')->references('id')->on('class_tbl');
         });
     }
 
@@ -30,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class');
+        Schema::table('section_tbl', function (Blueprint $table) {
+            //
+        });
     }
 };

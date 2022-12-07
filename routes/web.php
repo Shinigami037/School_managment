@@ -38,6 +38,7 @@ Route::controller(TeacherController::class)->group(function () {
 
 // Class
 Route::controller(ClassController::class)->group(function () {
+    Route::get('/admin/addclass', 'index')->name('class.class_add')->middleware(['auth:web', 'check_role:admin,null,null']);
     Route::get('/admin/class', 'display')->name('class.class')->middleware(['auth:web', 'check_role:admin,teacher,user']);
     Route::post('/admin/updateclass', 'update')->name('class.update_class')->middleware(['auth:web', 'check_role:admin,null,null']);
 });

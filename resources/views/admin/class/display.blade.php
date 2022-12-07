@@ -16,9 +16,8 @@
                                 <tr>
                                     {{-- <th>Id</th> --}}
                                     <th>Class</th>
-                                    <th>Section A</th>
-                                    <th>Section B</th>
-                                    <th>Section C</th>
+                                    <th>Section</th>
+                                    <th>Current Strength</th>
                                     <th>Max Class Strength</th>
                                     {{-- <th>{{ $values->student }}</th> --}}
                                     {{-- <th>Gender</th> --}}
@@ -26,8 +25,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 36; $i += 3)
+                                @foreach ($values as $data)
                                     <tr>
+                                        <td>
+                                            {{ $data->className }}
+                                        </td>
+                                        <td>
+                                            {{ $data->name }}
+                                        </td>
+                                        <td>
+                                            {{ $data->current_students }}
+                                        </td>
+                                        <td>
+                                            {{ $data->max_students }}
+                                        </td>
+                                        {{-- <td>
+                                            {{ $data->max_value * 3 }}
+                                        </td> --}}
+                                    </tr>
+                                @endforeach
+                                {{-- <tr>
                                         <td>
                                             {{ $values[$i]->name }}
                                         </td>
@@ -44,7 +61,7 @@
                                             {{ $values[$i]->max_value * 3 }}
                                         </td>
                                     </tr>
-                                @endfor
+                                @endfor --}}
                                 {{-- @foreach ($values as $data)
                                     <tr>
                                         <td>
