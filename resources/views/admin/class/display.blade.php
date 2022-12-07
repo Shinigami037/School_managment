@@ -25,7 +25,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($values as $data)
+                                @php
+
+                                    $prev = $values[0]->className;
+                                    echo '<tr>';
+                                    echo '<td>' . $prev . '</td>';
+                                    echo '<td>' . $values[0]->name . '</td>';
+                                    echo '<td>' . $values[0]->current_students . '</td>';
+                                    echo '<td>' . $values[0]->max_students . '</td>';
+                                    echo '</tr>';
+
+                                    for ($i = 1; $i < sizeof($values); $i++) {
+                                        echo '<tr>';
+                                        if ($prev == $values[$i]->className) {
+                                            echo '<td></td>';
+                                            echo '<td>' . $values[$i]->name . '</td>';
+                                            echo '<td>' . $values[$i]->current_students . '</td>';
+                                            echo '<td>' . $values[$i]->max_students . '</td>';
+                                        } else {
+                                            $prev = $values[$i]->className;
+                                            echo '<td>' . $prev . '</td>';
+                                            echo '<td>' . $values[$i]->name . '</td>';
+                                            echo '<td>' . $values[$i]->current_students . '</td>';
+                                            echo '<td>' . $values[$i]->max_students . '</td>';
+                                        }
+                                        echo '</tr>';
+                                    }
+                                @endphp
+                                {{-- @foreach ($values as $data)
                                     <tr>
                                         <td>
                                             {{ $data->className }}
@@ -39,11 +66,11 @@
                                         <td>
                                             {{ $data->max_students }}
                                         </td>
-                                        {{-- <td>
+                                        <td>
                                             {{ $data->max_value * 3 }}
-                                        </td> --}}
+                                        </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                                 {{-- <tr>
                                         <td>
                                             {{ $values[$i]->name }}
@@ -109,7 +136,7 @@
                             </tbody>
                         </table>
                         <div>
-                            {{-- <div class="row">{{ $values->links() }}</div> --}}
+                            <div class="row">{{ $values->links() }}</div>
                         </div>
                     </div>
                 </div>

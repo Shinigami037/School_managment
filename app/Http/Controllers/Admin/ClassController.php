@@ -20,8 +20,8 @@ class ClassController extends Controller
             ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
             ->select('class_tbl.name as className', 'section_tbl.*')
             ->orderBy('cid', 'asc')
-            ->get();
-        // ->paginate(2);
+            // ->get();
+            ->paginate(10);
         // ->orderBy('cid', 'asc');
         // ->where('teacher.is_delete', '=', 0);
 
@@ -49,13 +49,13 @@ class ClassController extends Controller
             $section->cid = $class_id;
             $section->save();
 
-            return redirect('admin/addclass');
+            return redirect('admin/class');
         } else {
 
             $temp->max_students = $max_value;
             $temp->update();
 
-            return redirect('admin/addclass');
+            return redirect('admin/class');
         }
     }
 }
