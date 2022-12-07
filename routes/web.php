@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,4 +42,12 @@ Route::controller(ClassController::class)->group(function () {
     Route::get('/admin/addclass', 'index')->name('class.class_add')->middleware(['auth:web', 'check_role:admin,null,null']);
     Route::get('/admin/class', 'display')->name('class.class')->middleware(['auth:web', 'check_role:admin,teacher,user']);
     Route::post('/admin/updateclass', 'update')->name('class.update_class')->middleware(['auth:web', 'check_role:admin,null,null']);
+});
+
+// Student
+Route::controller(StudentController::class)->group(function () {
+    Route::get('/admin/addstudent', 'index')->name('student.student_add')->middleware(['auth:web', 'check_role:admin,teacher,null']);
+    Route::post('/admin/addstuent', 'addstudent')->name('student.add_student_form')->middleware(['auth:web', 'check_role:admin,teacher,null']);
+    // Route::get('/admin/class', 'display')->name('class.class')->middleware(['auth:web', 'check_role:admin,teacher,user']);
+    // Route::post('/admin/updateclass', 'update')->name('class.update_class')->middleware(['auth:web', 'check_role:admin,null,null']);
 });

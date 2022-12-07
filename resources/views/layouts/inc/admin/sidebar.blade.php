@@ -62,7 +62,11 @@
             <div class="collapse" id="stu">
                 <ul class="nav flex-column sub-menu">
                     @if (Auth::user()->role_as == 1 or Auth::user()->role_as == 0)
-                        <li class="nav-item"> <a class="nav-link" href="#"> Add Students </a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('student.student_add') }}">
+                                Add Students
+                            </a>
+                        </li>
                         <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
                     @else
                         <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
