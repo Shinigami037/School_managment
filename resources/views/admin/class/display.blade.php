@@ -7,16 +7,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-6">
                             <h4 class="card-title">Class Table's</h4>
                         </div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2 float-right">
+                        <div class="col-lg-6 float-end">
                             <form action="{{ route('class.class_add') }}">
-                                <button type="submit" class="btn btn-primary me-2 btn-rounded float-right">Add
+                                <button type="submit" class="btn btn-primary me-2 btn-rounded float-end">Add
                                     Class</button>
                             </form>
 
@@ -34,6 +30,7 @@
                                     <th>Section</th>
                                     <th>Current Strength</th>
                                     <th>Max Class Strength</th>
+                                    <th>Action</th>
                                     {{-- <th>{{ $values->student }}</th> --}}
                                     {{-- <th>Gender</th> --}}
                                     {{-- <th>Action</th> --}}
@@ -48,6 +45,15 @@
                                     echo '<td>' . $values[0]->name . '</td>';
                                     echo '<td>' . $values[0]->current_students . '</td>';
                                     echo '<td>' . $values[0]->max_students . '</td>';
+                                    echo '<td>';
+                                    // echo $values[0]->sid;
+                                    if (Auth::user()->role_as == 1 or Auth::user()->role_as == 0) {
+                                        echo '<a href="' . route('class.class_editDisplay', ['id' => $values[0]->sid]) . '"class="btn btn-success btn-rounded">Edit</a>';
+                                    }
+                                    // if (Auth::user()->role_as == 0) {
+                                    //     echo '<a href="' . route('class.class_delete', ['id' => $values[0]->sid]) . '"class="btn btn-danger btn-rounded">Delete</a>';
+                                    // }
+                                    echo '</td>';
                                     echo '</tr>';
 
                                     for ($i = 1; $i < sizeof($values); $i++) {
@@ -64,6 +70,15 @@
                                             echo '<td>' . $values[$i]->current_students . '</td>';
                                             echo '<td>' . $values[$i]->max_students . '</td>';
                                         }
+                                        echo '<td>';
+                                        // echo $values[0]->sid;
+                                        if (Auth::user()->role_as == 0 or Auth::user()->role_as == 0) {
+                                            echo '<a href="' . route('class.class_editDisplay', ['id' => $values[$i]->sid]) . '"class="btn btn-success btn-rounded">Edit</a>';
+                                        }
+                                        // if (Auth::user()->role_as == 0) {
+                                        // echo '<a href="' . route('class.class_delete', ['id' => $values[$i]->sid]) . '"class="btn btn-danger btn-rounded">Delete</a>';
+                                        // }
+                                        echo '</td>';
                                         echo '</tr>';
                                     }
                                 @endphp

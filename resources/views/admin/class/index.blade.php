@@ -6,16 +6,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2">
+                        @if (Session::has('message'))
+                            <p class="alert alert-info">{{ Session::get('message') }}</p>
+                        @endif
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
                             <h4 class="card-title">Add Class</h4>
                         </div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2 float-right">
+                        <div class="col-lg-6 float-end">
                             <form action="{{ route('class.class') }}">
-                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-right">Back</button>
+                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-end">Back</button>
                             </form>
 
                         </div>

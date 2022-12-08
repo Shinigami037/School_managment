@@ -56,13 +56,13 @@ class TeacherController extends Controller
         } else {
             $teacher->gender = 0;
         }
-        $teacher_id = Helper::IDGenerator(new Teacher, 'teacher_id', 3, 'SCH', $mid, '', 'TEC');
+        $teacher_id = Helper::IDGenerator(new Teacher, 'teacher_id', 3, 'SCH', $mid, '', '', 'TEC');
         /** Generate id */
         $teacher->teacher_id = $teacher_id;
         // $teacher->img = $validatedData['img'];
         $teacher->save();
 
-        return redirect('admin/addteacher');
+        return redirect('admin/teacher');
     }
 
     public function display()

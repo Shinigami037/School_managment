@@ -18,7 +18,7 @@ class ClassController extends Controller
     {
         $value = DB::table('class_tbl')
             ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
-            ->select('class_tbl.name as className', 'section_tbl.*')
+            ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
             ->orderBy('cid', 'asc')
             // ->get();
             ->paginate(10);
@@ -52,10 +52,46 @@ class ClassController extends Controller
             return redirect('admin/class');
         } else {
 
-            $temp->max_students = $max_value;
-            $temp->update();
+            // $temp->max_students = $max_value;
+            // $temp->update();
 
-            return redirect('admin/class');
+            return redirect('admin/addclass')->with('message', 'Class has been already added');
         }
+    }
+    public function editDisplay(Request $request, $id)
+    {
+        // $section = Section::find($id);
+        // if ($section->current_students) {
+        //     # code...
+        // }
+        // dd($id);
+        $value = DB::table('class_tbl')
+            ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
+            ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
+            ->where('section_tbl.id', $id)
+            ->first();
+        // ->orderBy('cid', 'asc');
+        // ->where('teacher.is_delete', '=', 0);
+
+        // $value = ClassModel::all();
+        // dd($value);
+        return view('admin/class/edit', ['values' => $value]);
+    }
+    public function edit(Request $request, $id)
+    {
+        $input = $request->student;
+        $section = Section::find($id);
+        // dd($input, $section->current_students);
+        if ($section->current_students > $input) {
+            return redirect('admin/editclass/' . $id)->with('message', 'Value is Less than Current Students.');
+        }
+        $section->max_students = $input;
+        $section->update();
+        return redirect('admin/class');
+        // die($id);
+    }
+    public function delete(Request $request, $id)
+    {
+        dd($id);
     }
 }

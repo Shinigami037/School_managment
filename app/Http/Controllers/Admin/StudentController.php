@@ -20,11 +20,18 @@ class StudentController extends Controller
     public function index()
     {
         // die();
-        return view('admin.student.index');
+        // $value = DB::table('class_tbl')
+        // ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
+        // ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
+        // ->where('section_tbl.id', $id)
+        // ->first();
+        $class = ClassModel::all();
+        return view('admin.student.index', ['values' => $class]);
     }
 
     public function addstudent(Request $request)
     {
-        die("Under construction");
+        return redirect('admin/addstudent')->with('message', 'Under construction kal aiyo');
+        // die("Under construction kal aiyo");
     }
 }

@@ -8,16 +8,12 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-6">
                             <h4 class="card-title">Add Teacher</h4>
                         </div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2 float-right">
+                        <div class="col-lg-6 float-end">
                             <form action="{{ route('teacher.display_teacher') }}">
-                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-right">Back</button>
+                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-end">Back</button>
                             </form>
 
                         </div>

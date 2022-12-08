@@ -5,7 +5,17 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Edit Teacher</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4 class="card-title">Edit Teacher</h4>
+                        </div>
+                        <div class="col-lg-6 float-end">
+                            <form action="{{ route('teacher.display_teacher') }}">
+                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-end">Back</button>
+                            </form>
+
+                        </div>
+                    </div>
                     <form action="{{ route('teacher.update_teacher', ['tid' => $tid->tid]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

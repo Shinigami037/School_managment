@@ -41,7 +41,10 @@ Route::controller(TeacherController::class)->group(function () {
 Route::controller(ClassController::class)->group(function () {
     Route::get('/admin/addclass', 'index')->name('class.class_add')->middleware(['auth:web', 'check_role:admin,null,null']);
     Route::get('/admin/class', 'display')->name('class.class')->middleware(['auth:web', 'check_role:admin,teacher,user']);
+    Route::get('/admin/editclass/{id}', 'editDisplay')->name('class.class_editDisplay')->middleware(['auth:web', 'check_role:admin,null,null']);
+    // Route::get('/admin/deleteclass/{id}', 'delete')->name('class.class_delete')->middleware(['auth:web', 'check_role:admin,null,null']);
     Route::post('/admin/updateclass', 'update')->name('class.update_class')->middleware(['auth:web', 'check_role:admin,null,null']);
+    Route::post('/admin/{id}/edit', 'edit')->name('class.class_edit')->middleware(['auth:web', 'check_role:admin,null,null']);
 });
 
 // Student
