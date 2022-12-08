@@ -31,30 +31,26 @@
             </a>
         </li> --}}
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#tech" aria-expanded="false" aria-controls="auth">
-                <i class="mdi mdi-account menu-icon"></i>
-                <span class="menu-title">Teachers</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tech">
-                <ul class="nav flex-column sub-menu">
-                    @if (Auth::user()->role_as == 0)
-                        <li class="nav-item"> <a class="nav-link" href="{{ route('teacher.add_teacher') }}"> Add
-                                Teachers
-                            </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="{{ route('teacher.display_teacher') }}">
-                                Teachers </a></li>
-                    @elseif(Auth::user()->role_as == 1)
-                        <li class="nav-item"> <a class="nav-link" href="{{ route('teacher.display_teacher') }}">
-                                Teachers </a></li>
-                    @endif
-                    {{-- <li class="nav-item"> <a class="nav-link" href="#"> Add Teachers </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Teachers </a></li> --}}
-                </ul>
-            </div>
+            @if (Auth::user()->role_as == 0 || Auth::user()->role_as == 1)
+                <a class="nav-link" href="{{ route('teacher.display_teacher') }}" aria-expanded="false"
+                    aria-controls="auth">
+                    <i class="mdi mdi-account menu-icon"></i>
+                    <span class="menu-title">Teachers</span>
+                    {{-- <i class="menu-arrow"></i> --}}
+                </a>
+            @endif
+
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#stu" aria-expanded="false" aria-controls="auth">
+            @if (Auth::user()->role_as == 0 || Auth::user()->role_as == 1)
+                <a class="nav-link" href="{{ route('teacher.display_teacher') }}" aria-expanded="false"
+                    aria-controls="auth">
+                    <i class="mdi mdi-account menu-icon"></i>
+                    <span class="menu-title">Students</span>
+                    {{-- <i class="menu-arrow"></i> --}}
+                </a>
+            @endif
+            {{-- <a class="nav-link" data-bs-toggle="collapse" href="#stu" aria-expanded="false" aria-controls="auth">
                 <i class="mdi mdi-account menu-icon"></i>
                 <span class="menu-title">Students</span>
                 <i class="menu-arrow"></i>
@@ -73,11 +69,18 @@
                     @endif
                     {{-- <li class="nav-item"> <a class="nav-link" href="#"> Add Students </a></li>
                     <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li> --}}
-                </ul>
-            </div>
+            {{-- </ul>
+            </div>  --}}
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#class" aria-expanded="false" aria-controls="auth">
+            @if (Auth::user()->role_as == 0 || Auth::user()->role_as == 1)
+                <a class="nav-link" href="{{ route('class.class') }}" aria-expanded="false" aria-controls="auth">
+                    <i class="mdi mdi-account menu-icon"></i>
+                    <span class="menu-title">Class</span>
+                    {{-- <i class="menu-arrow"></i> --}}
+                </a>
+            @endif
+            {{-- <a class="nav-link" data-bs-toggle="collapse" href="#class" aria-expanded="false" aria-controls="auth">
                 <i class="mdi mdi-chair-school menu-icon"></i>
                 <span class="menu-title">Class</span>
                 <i class="menu-arrow"></i>
@@ -90,15 +93,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('class.class') }}"> Class's </a>
                         </li>
-                        {{-- <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li> --}}
+                        <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('class.class') }}"> Class's </a>
                         </li>
-                        {{-- <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li> --}}
+                        <li class="nav-item"> <a class="nav-link" href="#"> Students </a></li>
                     @endif
                 </ul>
-            </div>
+            </div> --}}
         </li>
         {{-- <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">

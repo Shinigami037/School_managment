@@ -6,7 +6,22 @@
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Class table</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4 class="card-title">Class Table's</h4>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 float-right">
+                            <form action="{{ route('class.class_add') }}">
+                                <button type="submit" class="btn btn-primary me-2 btn-rounded float-right">Add
+                                    Class</button>
+                            </form>
+
+                        </div>
+                    </div>
                     <div class="table-responsive pt-3">
                         <p>
                             Students in each class.

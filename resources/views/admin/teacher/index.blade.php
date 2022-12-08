@@ -3,9 +3,27 @@
 @section('content')
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
+
             <div class="card">
+
                 <div class="card-body">
-                    <h4 class="card-title">Add Teacher</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4 class="card-title">Add Teacher</h4>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 float-right">
+                            <form action="{{ route('teacher.display_teacher') }}">
+                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-right">Back</button>
+                            </form>
+
+                        </div>
+                    </div>
+                    {{-- <h4 class="card-title">Add Teacher</h4> --}}
+
                     <form class="forms-sample" action="{{ route('teacher.add_teacher_form') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

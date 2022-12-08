@@ -5,7 +5,21 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Add Class</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4 class="card-title">Add Class</h4>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 float-right">
+                            <form action="{{ route('class.class') }}">
+                                <button type="submit" class="btn btn-danger me-2 btn-rounded float-right">Back</button>
+                            </form>
+
+                        </div>
+                    </div>
                     <form class="forms-sample" action="{{ route('class.update_class') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

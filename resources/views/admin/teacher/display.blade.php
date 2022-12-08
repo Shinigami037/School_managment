@@ -2,11 +2,28 @@
 
 @section('content')
     {{-- <livewire:admin.teacher.index /> --}}
+
     <div class="row">
+
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Teacher's table</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4 class="card-title">Teacher's table</h4>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 float-right">
+                            <form action="{{ route('teacher.add_teacher') }}">
+                                <button type="submit" class="btn btn-primary me-2 btn-rounded float-right">Add
+                                    teacher</button>
+                            </form>
+
+                        </div>
+                    </div>
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
                             <thead>
@@ -73,6 +90,7 @@
                             <div class="row">{{ $values->links() }}</div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
