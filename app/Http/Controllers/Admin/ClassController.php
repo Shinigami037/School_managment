@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ClassFormRequest;
 use App\Models\ClassModel;
 use App\Models\Section;
 use Illuminate\Support\Facades\DB;
@@ -29,8 +30,9 @@ class ClassController extends Controller
         // dd($value);
         return view('admin/class/display', ['values' => $value]);
     }
-    public function update(Request $request)
+    public function update(ClassFormRequest $request)
     {
+        $data = $request->validate();
         $recived_class = $request->class;
         $recived_section = $request->section;
         $max_value = $request->student;
@@ -77,8 +79,10 @@ class ClassController extends Controller
         // dd($value);
         return view('admin/class/edit', ['values' => $value]);
     }
-    public function edit(Request $request, $id)
+    public function edit(ClassFormRequest $request, $id)
     {
+        $data = $request->validate();
+        // dd($data);
         $input = $request->student;
         $section = Section::find($id);
         // dd($input, $section->current_students);

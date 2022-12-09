@@ -9,11 +9,14 @@ class Helper
     {
         $data = $model::orderBy('id', 'desc')->first();
         if (!$data) {
-            $og_length = $length;
-            $last_number = '';
+            $og_length = $length - 1;
+            $last_number = '1';
         } else {
             $code = (int)(substr($data->$trow, strlen($prefix) + 2 + strlen($cl) + strlen($class) + strlen($name)));
             $actial_last_number = ($code / 1) * 1;
+            if ($actial_last_number == 0) {
+                $actial_last_number += 1;
+            }
             $increment_last_number = ((int)$actial_last_number) + 1;
             $last_number_length = strlen($increment_last_number);
             $og_length = $length - $last_number_length;
@@ -23,26 +26,21 @@ class Helper
         for ($i = 0; $i < $og_length; $i++) {
             $zeros .= "0";
         }
-        return $prefix . $date . $class . $name . $zeros . $last_number;
+        return $prefix . $date . $cl . $class . $name . $zeros . $last_number;
     }
-    public static function EmailGenerator($model, $trow, $length = 4, $date, $class, $sec, $name)
+    public static function LastNumberGenerator($value, $class, $length)
     {
-        $data = $model::orderBy('id', 'desc')->first();
-        if (!$data) {
-            $og_length = $length;
-            $last_number = '';
-        } else {
-            $code = (int)(substr($data->$trow, 10 + strlen($class) + strlen($name)));
-            $actial_last_number = ($code / 1) * 1;
-            $increment_last_number = ((int)$actial_last_number) + 1;
-            $last_number_length = strlen($increment_last_number);
-            $og_length = $length - $last_number_length;
-            $last_number = $increment_last_number;
+        $code = (int)(substr($value, 10 + strlen($class)));
+        $actial_last_number = ($code / 1) * 1;
+        if ($actial_last_number == 0) {
+            $actial_last_number += 1;
         }
+        $last_number_length = strlen($actial_last_number);
+        $og_length = $length - $last_number_length;
         $zeros = "";
         for ($i = 0; $i < $og_length; $i++) {
             $zeros .= "0";
         }
-        return  $date . 'schcl' . $class . $sec . $name . $zeros . $last_number . '@school.org';
+        return  $zeros . $actial_last_number;
     }
 }

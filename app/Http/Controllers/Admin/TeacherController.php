@@ -22,7 +22,7 @@ class TeacherController extends Controller
 
     public function addteacher(TeacherFormRequest $request)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->validate();
 
         $user = new User;
         $teacher = new Teacher;

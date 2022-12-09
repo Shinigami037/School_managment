@@ -129,7 +129,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Address</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" required>
+                                            <input name="address" type="text" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">State</label>
                                         <div class="col-sm-9">
-                                            <select name="state" id="state" class="form-control" required>
+                                            <select name="state" id="state[]" class="form-control" required>
                                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                 <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
                                                 </option>
@@ -194,7 +194,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">City</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" required>
+                                            <input name="city" type="text" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,17 @@
         <div class="col-12 grid-margin stretch-card">
 
             <div class="card">
-
+                <div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -26,22 +36,22 @@
                         <div class="form-group">
                             <label for="exampleInputName1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputName1"
-                                placeholder="Name" required>
+                                placeholder="Name">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail3">Email address</label>
                             <input name="email" type="email" class="form-control" id="exampleInputEmail3"
-                                placeholder="Email" required>
+                                placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword4">Password</label>
                             <input name="password" type="password" class="form-control" id="exampleInputPassword4"
-                                placeholder="Password" required>
+                                placeholder="Password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputMobile">Mobile</label>
                             <input name="phone" type="tel" class="form-control" id="exampleInputMobile"
-                                placeholder="Mobile number" required>
+                                placeholder="Mobile number">
                         </div>
                         <div class="form-group">
                             <label>Photo</label>
@@ -57,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleTextarea1">Qualification</label>
-                            <textarea name="qualification" class="form-control" id="exampleTextarea1" rows="4" required></textarea>
+                            <textarea name="qualification" class="form-control" id="exampleTextarea1" rows="4"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary me-2 btn-rounded">Submit</button>
                     </form>

@@ -4,6 +4,17 @@
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
+                <div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
                 <div class="card-body">
                     <div class="row">
                         @if (Session::has('message'))
@@ -79,7 +90,7 @@
                         <div class="form-group">
                             <label for="exampleInputMobile">Max Students Per Section</label>
                             <input name="student" type="number" class="form-control" id="exampleInputMobile"
-                                placeholder="Maximum Student" required>
+                                placeholder="Maximum Student">
                         </div>
                         {{-- <div class="form-group">
                             <label>Gender</label>

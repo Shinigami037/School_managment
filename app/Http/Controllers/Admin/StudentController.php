@@ -13,6 +13,7 @@ use App\Helpers\Helper;
 use Illuminate\Support\Facades\DB;
 use App\Models\ClassModel;
 use App\Models\Section;
+use App\Models\Student;
 
 
 class StudentController extends Controller
@@ -31,7 +32,84 @@ class StudentController extends Controller
 
     public function addstudent(Request $request)
     {
-        return redirect('admin/addstudent')->with('message', 'Under construction kal aiyo');
+        $value = $request;
+
+        $sel_class = $value->class;
+        $sel_gender = $value->gender;
+        $sel_state = $value->state;
+        $class = ClassModel::where('name', $sel_class[0])->first();
+        $section = Section::where('cid', '=', $class->id)->get();
+
+        $sec_id = 0;
+        $sec_name = '';
+        for ($i = 0; $i < sizeof($section); $i++) {
+            if ($section[$i]->current_students + 1 <= $section[$i]->max_students) {
+                $section[$i]->current_students += 1;
+                $section[$i]->update();
+                $sec_id = $section[$i]->id;
+                $sec_name = $section[$i]->name;
+                break;
+            }
+        }
+        // dd($sel_state);
+
+        // Generators
+        $date = date("Y");
+        // student_id generate
+        $mid = strval($date[2] . $date[3]);
+        $student_id = Helper::IDGenerator(new Student, 'student_id', 3, 'SCH', $mid, 'CL', $class->id, 'STU');
+        // student_email generate
+        $last_number = Helper::LastNumberGenerator($student_id, $class->id, 3);
+        $sec_name = strtolower($sec_name);
+        $email = $date . 'schcl' . $class->id . $sec_name . $value['fname'] . $last_number . '@school.org';
+
+        // dd($value->date);
+
+        // user table
+        $user = new User;
+
+
+        $user->name = $value['fname'];
+        $user->email = $email;
+        $user->password = Hash::make($value['password']);
+        $user->role_as = 2;
+        if (!$user->save()) {
+            return redirect('admin/addstudent')->with('message', 'Please try again later');
+        }
+        // dd('password');
+        // $user->save();
+        $id = $user->id;
+        // student table
+        $student = new Student;
+        $student->lname = $value['lname'];
+        $student->cid = $sec_id;
+        $student->sec_email = $value['email'];
+        $student->student_id = $student_id;
+        $student->phone = $value['phone'];
+        if ($sel_gender[0] == 'Male') {
+            $student->gender = 1;
+        } else {
+            $student->gender = 0;
+        }
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+
+            $file->move('uploads/student/', $filename);
+            $student->img = $filename;
+        }
+        $student->address = $value['address'];
+        $student->state = $sel_state;
+        $student->city = $value['city'];
+        $student->zip = $value['zip'];
+        $student->birth_date = $value['date'];
+        $student->cid = $sec_id;
+        $student->sid = $id;
+        if (!$student->save()) {
+            return redirect('admin/addstudent')->with('message', 'Please try again later');
+        }
+        return redirect('admin/addstudent');
         // die("Under construction kal aiyo");
     }
 }
