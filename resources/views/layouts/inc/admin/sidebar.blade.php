@@ -16,7 +16,7 @@
         </li>
         <li class="nav-item">
             @if (Auth::user()->role_as == 0 || Auth::user()->role_as == 1)
-                <a class="nav-link" href="{{ route('student.student_add') }}">
+                <a class="nav-link" href="{{ route('student.student_display') }}">
                     <i class="mdi mdi-account menu-icon"></i>
                     <span class="menu-title">Students</span>
                 </a>

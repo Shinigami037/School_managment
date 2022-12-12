@@ -3,6 +3,9 @@
 
 <head>
 
+    <script type="text/javascript">
+        BASE_URL = "{{ url('') }}";
+    </script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,21 +37,59 @@
 </head>
 
 <body>
-
-    <div class="container-scroller">
-        @include('layouts.inc.admin.navbar')
-        <div class="container-fluid page-body-wrapper">
-            @include('layouts.inc.admin.sidebar')
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    @yield('content')
+    @if (Auth::check())
+        <div class="container-scroller">
+            @include('layouts.inc.admin.navbar')
+            <div class="container-fluid page-body-wrapper">
+                @include('layouts.inc.admin.sidebar')
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        {{-- @else
+        @php
+            return redirect(Request::url('/home'));
+        @endphp --}}
+    @endif
 
+    {{-- ajax --}}
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function fetch_data(sort_type = '', column_name = '') {
+                $.ajax({
+                    url: "{{ url('') }}" + "/admin/studentorderby?sortby=" + column_name +
+                        "&sorttype=" +
+                        sort_type,
+                    method: 'GET',
+                    success: function(data) {
+                        console.log('helloo');
+                        // $('tbody').html('');
+                        $('tbody').html(data);
+                    }
+                })
+            }
 
-
+            $(document).on('click', '.sorting', function() {
+                var column = $(this).data('column_name');
+                var order = $(this).data('sorting_type');
+                var reverse = '';
+                if (order == 'asc') {
+                    $(this).data('sorting_type', 'desc');
+                    reverse = 'desc';
+                } else {
+                    $(this).data('sorting_type', 'asc');
+                    reverse = 'asc';
+                }
+                $('#hidden_column_name').val(column);
+                $('#hidden_sort_type').val(reverse);
+                fetch_data(reverse, column);
+            });
+        });
+    </script> --}}
 
     <script src="{{ asset('admin/vendors/base/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('admin/vendors/datatables.net/jquery.dataTables.js') }}"></script>
@@ -61,6 +102,8 @@
     <script src="{{ asset('admin/js/data-table.js') }}"></script>
     <script src="{{ asset('admin/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('admin/js/dataTables.bootstrap4.js') }}"></script>
+
+    @yield('scripts')
 
     <!-- End custom js for this page-->
     @livewireScripts

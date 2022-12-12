@@ -65,17 +65,31 @@ class TeacherController extends Controller
         return redirect('admin/teacher');
     }
 
-    public function display()
+    public function display(Request $request)
     {
-        $value = DB::table('users')
-            ->join('teacher', 'users.id', '=', 'teacher.tid')
-            ->select('users.name', 'users.email', 'teacher.*')
-            ->where('teacher.is_delete', '=', 0)
-            ->paginate(5);
+        $search = $request['search'] ?? '';
+        // die($search);
+        if ($search != '') {
+            $value = DB::table('users')
+                ->join('teacher', 'users.id', '=', 'teacher.tid')
+                ->select('users.name', 'users.email', 'teacher.*')
+                ->where('users.name', 'LIKE', "%$search%")
+                ->orwhere('users.email', 'LIKE', "%$search%")
+                ->orwhere('teacher.teacher_id', 'LIKE', "%$search%")
+                ->where('teacher.is_delete', '=', 0)
+                ->paginate(5);
+        } else {
+            $value = DB::table('users')
+                ->join('teacher', 'users.id', '=', 'teacher.tid')
+                ->select('users.name', 'users.email', 'teacher.*')
+                ->where('teacher.is_delete', '=', 0)
+                ->paginate(5);
+        }
+
         // $value = Teacher::orderBy('id', 'ASC')->where('is_delete', '=', 0)->paginate(5);
         // $value = DB::table('Teacher')->orderBy('id', 'asc')->where('is_delete', '=', 0)->paginate(5);
         // return view('livewire.admin.teacher.index', ['values' => $value]);
-        return view('admin.teacher.display', ['values' => $value]);
+        return view('admin.teacher.display', ['values' => $value, 'search' => $search]);
     }
 
     public function edit($tid)
@@ -143,8 +157,10 @@ class TeacherController extends Controller
         return redirect('admin/teacher');
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request)
     {
+        $id = $request->user_id;
+        // dd($id);
         $teacher = Teacher::where('tid', '=', $id)->first();
         // $teacher = Teacher::findOrFail($id);
         $teacher->is_delete = 1;
@@ -153,5 +169,20 @@ class TeacherController extends Controller
         $user->role_as = 3;
         $user->update();
         return redirect('admin/teacher');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $id = $request->status_id;
+        $teacher = Teacher::find($id);
+        $curr_status = $teacher->status;
+        if ($curr_status == 1) {
+            $teacher->status = 0;
+        } else {
+            $teacher->status = 1;
+        }
+        $teacher->update();
+        // dd($teacher->status, $curr_status, $id);
+        return redirect('admin/teacher')->with('message', 'Status updated');
     }
 }

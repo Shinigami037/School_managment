@@ -15,7 +15,7 @@
                             <h4 class="card-title">Add Student's</h4>
                         </div>
                         <div class="col-lg-6 float-right">
-                            <form action="">
+                            <form action="{{ route('student.student_display') }}">
                                 <button type="submit" class="btn btn-danger me-2 btn-rounded float-end">Back</button>
                             </form>
                         </div>

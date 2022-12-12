@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ClassModel;
 use App\Models\Section;
 use App\Models\Student;
-
+use Ramsey\Uuid\Codec\OrderedTimeCodec;
 
 class StudentController extends Controller
 {
@@ -51,8 +51,9 @@ class StudentController extends Controller
                 break;
             }
         }
-        // dd($sel_state);
-
+        if ($sec_id == 0 && $sec_name == '') {
+            return redirect('admin/addstudent')->with('message', 'No Free Seat found.');
+        }
         // Generators
         $date = date("Y");
         // student_id generate
@@ -111,5 +112,46 @@ class StudentController extends Controller
         }
         return redirect('admin/addstudent');
         // die("Under construction kal aiyo");
+    }
+
+    public function display()
+    {
+        $value = DB::table('student')
+            ->join('users', 'student.sid', '=', 'users.id')
+            ->join('section_tbl', 'student.cid', '=', 'section_tbl.id')
+            ->join('class_tbl', 'section_tbl.cid', '=', 'class_tbl.id')
+            ->orderBy('cid', 'asc')
+            ->select('users.name as fname', 'users.email', 'student.*', 'section_tbl.name as sectionName', 'section_tbl.max_students', 'section_tbl.current_students', 'class_tbl.name as className')
+
+            ->get();
+        // ->select('users.*', 'student.*', 'section_tbl.*');
+        // ->where('teacher.is_delete', '=', 0)
+        // ->paginate(5);
+        // die(compact($value));
+        // dd($value);
+        return view('admin/student/display', ['values' => $value]);
+    }
+
+    public function displayOrder(Request $request)
+    {
+        if ($request->ajax()) {
+            $order = $request->sortby;
+            // return redirect('admin/addstudent')->with('message', 'Please try again later');
+            $value = DB::table('student')
+                ->join('users', 'student.sid', '=', 'users.id')
+                ->join('section_tbl', 'student.cid', '=', 'section_tbl.id')
+                ->join('class_tbl', 'section_tbl.cid', '=', 'class_tbl.id')
+                ->orderBy('cid', 'asc')
+                ->select('users.name as fname', 'users.email', 'student.*', 'section_tbl.name as sectionName', 'section_tbl.max_students', 'section_tbl.current_students', 'class_tbl.name as className')
+                ->paginate(5);
+            // die(gettype($value));
+            // dd($order);
+            $value = (array) $value;
+            $array = json_encode($value);
+
+            return view('admin/student/display', compact('value'))->render();
+            // die(gettype($array));
+            die($array);
+        }
     }
 }
