@@ -58,11 +58,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-7">
+                        <div class="col-lg-6">
                             <h4 class="card-title">Teacher's table</h4>
                         </div>
                         {{-- <div class="col-lg-3"> --}}
-                        <form action="" class="col-lg-3">
+                        <form action="" class="col-lg-4">
                             <div class="input-group">
                                 <div class="form-outline">
                                     <input type="search" name="search" id="" class="form-control"
@@ -138,7 +138,7 @@
                                         <td>
                                             <button type="button" class="btn mdi mdi-eye mdi-24px"
                                                 style="color: rgb(99, 104, 103)"
-                                                onclick="window.location='{{ route('teacher.edit_teacher', ['tid' => $data->tid]) }}'">
+                                                onclick="window.location='{{ route('teacher.viewCard_teacher') }}'">
                                             </button>
                                             @if (Auth::user()->id == $data->tid or Auth::user()->role_as == 0)
                                                 <button type="button" class="btn mdi mdi-account-edit mdi-24px"
@@ -180,10 +180,6 @@
                 $('#status_id').val(user_id);
                 $('#statusModal').modal('show');
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
             $('.deleteUserBtn').click(function(e) {
                 e.preventDefault();
 

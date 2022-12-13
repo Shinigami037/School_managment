@@ -185,4 +185,8 @@ class TeacherController extends Controller
         // dd($teacher->status, $curr_status, $id);
         return redirect('admin/teacher')->with('message', 'Status updated');
     }
+    public function viewCard()
+    {
+        return view('admin/teacher/view');
+    }
 }
