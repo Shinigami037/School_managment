@@ -20,9 +20,9 @@ class TeacherController extends Controller
         return view('admin.teacher.index');
     }
 
-    public function addteacher(TeacherFormRequest $request)
+    public function addteacher(Request $request)
     {
-        $validatedData = $request->validate();
+        $validatedData = $request;
 
         $user = new User;
         $teacher = new Teacher;
@@ -185,8 +185,17 @@ class TeacherController extends Controller
         // dd($teacher->status, $curr_status, $id);
         return redirect('admin/teacher')->with('message', 'Status updated');
     }
-    public function viewCard()
+    public function viewCard(Request $request, $id)
     {
-        return view('admin/teacher/view');
+        $value = DB::table('users')
+            ->join('teacher', 'users.id', '=', 'teacher.tid')
+            ->select('users.name', 'users.email', 'teacher.*')
+            ->where('teacher.id', '=', $id)
+            ->where('teacher.is_delete', '=', 0)
+            ->first();
+        // $teacher = Teacher::find($id);
+        // $user = User::find($teacher->tid);
+        // dd($value);
+        return view('admin/teacher/view', ['values' => $value]);
     }
 }

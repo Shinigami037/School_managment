@@ -3,6 +3,21 @@
 @section('content')
     {{-- <livewire:admin.teacher.index /> --}}
     <div class="row">
+        <form action="" class="col-lg-12">
+            <div class="input-group col-lg-12">
+                <div class="form-outline col-lg-11">
+                    <input type="search" name="search" id="" class="form-control"
+                        style="color: #aab2bd ; border-radius:50px 0 0 50px" value="{{ $search }}">
+                    {{-- <button class="btn btn-primary me-2 btn-rounded float-end"><i
+                                        class="mdi mdi-magnify"></i></button> --}}
+                </div>
+                {{-- <div class="form-group"> --}}
+                <button class="btn btn-primary btn-rounded col-lg-1 float-end" style="border-radius:0 50px 50px 0"><i
+                        class="mdi mdi-magnify"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">

@@ -1,17 +1,27 @@
 @extends('layouts.admin')
 @section('content')
-    {{-- <div class="container"> --}}
     <div class="row">
         <div class="col-lg-12">
+
             <div class="card" style="border-radius: .5rem;">
+                <div class="row">
+                    <div class="col-lg-12 float-end" style="padding: 20px">
+                        <form action="{{ route('teacher.display_teacher') }}">
+                            <button type="submit" class="btn btn-danger me-2 btn-rounded float-end">Back</button>
+                        </form>
+
+                    </div>
+                </div>
                 <div class="row g-0">
-                    <div class="col-md-4 text-center text-white"
+
+                    <div class="col-md-4 text-center"
                         style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                            alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                        <h5>Marie Horwitz</h5>
-                        <p>Web Designer</p>
-                        <i class="far fa-edit mb-5"></i>
+                        <img src="{{ asset('uploads/teacher/' . $values->img) }}" width="400px" height="400px"
+                            alt="Image" style="padding: 20px;" />
+                        <h5>{{ $values->name }}</h5>
+                        <p>
+                            Teacher
+                        </p>
                     </div>
                     <div class="col-lg-8">
                         <div class="card-body p-4">
@@ -19,10 +29,10 @@
                             <hr class="mt-0 mb-4">
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
                                 <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
+                                    <h6 class="text-muted">Name: </h6>
                                 </div>
                                 <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
+                                    <h5>{{ $values->name }}</h5>
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
@@ -30,77 +40,59 @@
                                     <h6 class="text-muted">Email : </h6>
                                 </div>
                                 <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
+                                    <h5>{{ $values->email }}</h5>
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
                                 <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
+                                    <h6 class="text-muted">Phone No. : </h6>
                                 </div>
                                 <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
+                                    <h5>{{ $values->phone }}</h5>
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
-                                <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
+                                <div class="col-lg-2">
+                                    <h6 class="text-muted">Unique Id : </h6>
                                 </div>
-                                <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
-                                </div>
-                            </div>
-                            <div class="row" style="padding-bottom: 15px; padding-top: 10px">
-                                <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
-                                </div>
-                                <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
+                                <div class="col-lg-10">
+                                    <h5>{{ $values->teacher_id }}</h5>
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
-                                <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
+                                <div class="col-lg-2">
+                                    <h6 class="text-muted">Qualification : </h6>
                                 </div>
-                                <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
+                                <div class="col-lg-10">
+                                    <h5>{{ $values->qualification }}</h5>
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 15px; padding-top: 10px">
-                                <div class="col-lg-1">
-                                    <h6 class="text-muted">Email : </h6>
+                                <div class="col-lg-2">
+                                    <h6 class="text-muted">Gender : </h6>
                                 </div>
-                                <div class="col-lg-11">
-                                    <h5>info@example.com</h5>
-                                </div>
-                            </div>
-
-                            {{-- <div class="col-6 mb-3">
-                                <h6>Phone</h6>
-                                <p class="text-muted">123 456 789</p>
-                            </div> --}}
-                            {{-- </div> --}}
-                            {{-- <h6>Projects</h6>
-                            <hr class="mt-0 mb-4">
-                            <div class="row pt-1">
-                                <div class="col-6 mb-3">
-                                    <h6>Recent</h6>
-                                    <p class="text-muted">Lorem ipsum</p>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <h6>Most Viewed</h6>
-                                    <p class="text-muted">Dolor sit amet</p>
+                                <div class="col-lg-10">
+                                    <h5>
+                                        @if ($values->gender == 1)
+                                            Male
+                                        @else
+                                            Female
+                                        @endif
+                                    </h5>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-start">
-                                <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                            </div> --}}
+                            <div class="row" style="padding-bottom: 15px; padding-top: 10px">
+                                <div class="col-lg-2">
+                                    <h6 class="text-muted">Status : </h6>
+                                </div>
+                                <div class="col-lg-10">
+                                    <h5>{{ $values->status == 1 ? 'Active' : 'In Active' }}</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- </div> --}}
 @endsection

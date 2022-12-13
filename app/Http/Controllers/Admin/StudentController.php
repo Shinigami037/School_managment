@@ -58,8 +58,10 @@ class StudentController extends Controller
         $date = date("Y");
         // student_id generate
         $mid = strval($date[2] . $date[3]);
-        $student_id = Helper::IDGenerator(new Student, 'student_id', 3, 'SCH', $mid, 'CL', $class->id, 'STU');
+        // $student_id = Helper::IDGenerator(new Student, 'student_id', 3, 'SCH', $mid, 'CL', $class->id, 'STU');
         // student_email generate
+        $student_id = Helper::StudentIdGenerator('student_id', 3, $mid, $class->id);
+        // dd($student_id2);
         $last_number = Helper::LastNumberGenerator($student_id, $class->id, 3);
         $sec_name = strtolower($sec_name);
         $email = $date . 'schcl' . $class->id . $sec_name . $value['fname'] . $last_number . '@school.org';
@@ -110,7 +112,7 @@ class StudentController extends Controller
         if (!$student->save()) {
             return redirect('admin/addstudent')->with('message', 'Please try again later');
         }
-        return redirect('admin/addstudent');
+        return redirect('admin/student');
         // die("Under construction kal aiyo");
     }
 

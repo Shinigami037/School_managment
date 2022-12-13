@@ -15,20 +15,31 @@ class ClassController extends Controller
     {
         return view('admin/class/index');
     }
-    public function display()
+    public function display(Request $request)
     {
-        $value = DB::table('class_tbl')
-            ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
-            ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
-            ->orderBy('cid', 'asc')
-            // ->get();
-            ->paginate(10);
+        $search = $request['search'] ?? '';
+        if ($search != '') {
+            $value = DB::table('class_tbl')
+                ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
+                ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
+                ->where('class_tbl.name', 'LIKE', "%$search")
+                ->orderBy('cid', 'asc')
+                // ->get();
+                ->paginate(10);
+        } else {
+            $value = DB::table('class_tbl')
+                ->join('section_tbl', 'class_tbl.id', '=', 'section_tbl.cid')
+                ->select('class_tbl.name as className', 'section_tbl.*', 'section_tbl.id as sid')
+                ->orderBy('cid', 'asc')
+                // ->get();
+                ->paginate(10);
+        }
         // ->orderBy('cid', 'asc');
         // ->where('teacher.is_delete', '=', 0);
 
         // $value = ClassModel::all();
         // dd($value);
-        return view('admin/class/display', ['values' => $value]);
+        return view('admin/class/display', ['values' => $value, 'search' => $search]);
     }
     public function update(ClassFormRequest $request)
     {
@@ -79,9 +90,9 @@ class ClassController extends Controller
         // dd($value);
         return view('admin/class/edit', ['values' => $value]);
     }
-    public function edit(ClassFormRequest $request, $id)
+    public function edit(Request $request, $id)
     {
-        $data = $request->validate();
+        // $data = $request->validate();
         // dd($data);
         $input = $request->student;
         $section = Section::find($id);

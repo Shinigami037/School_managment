@@ -47,35 +47,39 @@
             </div>
         </div>
     </form>
-
+    <div class="row">
+        @if (Session::has('message'))
+            <p class="alert alert-success">{{ Session::get('message') }}</p>
+        @endif
+    </div>
+    <div class="row">
+        <form action="" class="col-lg-12">
+            <div class="input-group col-lg-12">
+                <div class="form-outline col-lg-11">
+                    <input type="search" name="search" id="" class="form-control"
+                        style="color: #aab2bd ; border-radius:50px 0 0 50px" value="{{ $search }}">
+                    {{-- <button class="btn btn-primary me-2 btn-rounded float-end"><i
+                                        class="mdi mdi-magnify"></i></button> --}}
+                </div>
+                {{-- <div class="form-group"> --}}
+                <button class="btn btn-primary btn-rounded col-lg-1 float-end" style="border-radius:0 50px 50px 0"><i
+                        class="mdi mdi-magnify"></i></button>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="col-lg-12 stretch-card">
             <div class="card">
-                <div class="row">
-                    @if (Session::has('message'))
-                        <p class="alert alert-success">{{ Session::get('message') }}</p>
-                    @endif
-                </div>
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
                             <h4 class="card-title">Teacher's table</h4>
                         </div>
                         {{-- <div class="col-lg-3"> --}}
-                        <form action="" class="col-lg-4">
-                            <div class="input-group">
-                                <div class="form-outline">
-                                    <input type="search" name="search" id="" class="form-control"
-                                        style="color: #aab2bd" value="{{ $search }}">
-                                    {{-- <button class="btn btn-primary me-2 btn-rounded float-end"><i
-                                        class="mdi mdi-magnify"></i></button> --}}
-                                </div>
-                                {{-- <div class="form-group"> --}}
-                                <button class="btn btn-primary float-end"><i class="mdi mdi-magnify"></i></button>
-                            </div>
-                        </form>
+
                         {{-- </div> --}}
-                        <div class="col-lg-2 float-right">
+                        <div class="col-lg-6 float-right">
                             @if (Auth::check())
                                 @if (Auth::user()->role_as == 0)
                                     <form action="{{ route('teacher.add_teacher') }}">
@@ -124,7 +128,8 @@
                                                 height="170px" alt="Image" />
                                         </td>
                                         <td>
-                                            <button type="button" class="btn changeStatusBtn" value="{{ $data->id }}">
+                                            <button type="button" class="btn btn-outline-info btn-fw changeStatusBtn"
+                                                value="{{ $data->id }}">
                                                 {{ $data->status == 1 ? 'Active' : 'In Active' }}
                                             </button>
                                         </td>
@@ -138,7 +143,7 @@
                                         <td>
                                             <button type="button" class="btn mdi mdi-eye mdi-24px"
                                                 style="color: rgb(99, 104, 103)"
-                                                onclick="window.location='{{ route('teacher.viewCard_teacher') }}'">
+                                                onclick="window.location='{{ route('teacher.viewCard_teacher', ['id' => $data->id]) }}'">
                                             </button>
                                             @if (Auth::user()->id == $data->tid or Auth::user()->role_as == 0)
                                                 <button type="button" class="btn mdi mdi-account-edit mdi-24px"

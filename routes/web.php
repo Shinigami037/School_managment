@@ -37,7 +37,7 @@ Route::controller(TeacherController::class)->group(function () {
     Route::post('/admin/delete', 'delete')->name('teacher.delete_teacher')->middleware(['auth:web', 'check_role:admin,null,null']);
     Route::post('/admin/status', 'updateStatus')->name('teacher.update_status')->middleware(['auth:web', 'check_role:admin,null,null']);
 
-    Route::get('/admin/teacher/single',  'viewCard')->name('teacher.viewCard_teacher')->middleware(['auth:web', 'check_role:admin,teacher,null']);
+    Route::get('/admin/teacher/single/{id}',  'viewCard')->name('teacher.viewCard_teacher')->middleware(['auth:web', 'check_role:admin,teacher,null']);
 });
 
 // Class
